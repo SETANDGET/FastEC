@@ -15,5 +15,6 @@ public class FontEcModule implements IconFontDescriptor{
     @Override
     public Icon[] characters() {
         return new Icon[0];
+
     }
 }
