@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class Configurator {
     //要比HashMap容易回收
     private static final HashMap<String, Object> LATTE_CONFIGS = new HashMap<>();
+    //图标初始化
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
     //私有构造
     private Configurator() {
