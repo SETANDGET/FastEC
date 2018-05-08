@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.ContentFrameLayout;
 
 import com.mgzxc.latte_core.R;
-import com.mgzxc.latte_core.delegates.LatteDelegae;
+import com.mgzxc.latte_core.delegates.LatteDelegate;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
@@ -13,7 +13,7 @@ import me.yokeyword.fragmentation.SupportActivity;
  * Created by MG_ZXC on 2018/5/7.
  */
 public abstract class ProxyActivity extends SupportActivity{
-    public abstract LatteDelegae setRootDelegate();//设置根fragment
+    public abstract LatteDelegate setRootDelegate();//设置根fragment
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

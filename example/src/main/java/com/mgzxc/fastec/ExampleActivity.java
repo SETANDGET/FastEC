@@ -1,13 +1,13 @@
 package com.mgzxc.fastec;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.mgzxc.latte_core.activities.ProxyActivity;
+import com.mgzxc.latte_core.delegates.LatteDelegate;
 
-public class ExampleActivity extends AppCompatActivity {
+public class ExampleActivity extends ProxyActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public LatteDelegate setRootDelegate() {
+        return new ExampleDelegate();
     }
 }

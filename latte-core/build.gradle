@@ -35,6 +35,7 @@ dependencies {
     // swipeback基于fragmentation, 如果是自定制SupportActivity/Fragment，则参照SwipeBackActivity/Fragment实现即可
     api 'me.yokeyword:fragmentation-swipeback:1.3.3'
     //butterknife 注解
+    //noinspection GradleDependency
     implementation  'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
