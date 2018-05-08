@@ -17,6 +17,6 @@ public class ExampleDelegate extends LatteDelegate {
 
     @Override
     protected void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-
+//        RestClient.builder().
     }
 }
