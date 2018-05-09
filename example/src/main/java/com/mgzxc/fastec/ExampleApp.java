@@ -16,7 +16,7 @@ public class ExampleApp extends Application {
         Latte.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
-                .withApiHost("").configure();
+                .withApiHost("http://10.0.2.2:8080/").configure();
 
 
 

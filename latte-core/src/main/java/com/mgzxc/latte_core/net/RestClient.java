@@ -4,11 +4,14 @@ import com.mgzxc.latte_core.net.callback.IError;
 import com.mgzxc.latte_core.net.callback.IFailure;
 import com.mgzxc.latte_core.net.callback.IRequest;
 import com.mgzxc.latte_core.net.callback.ISuccess;
+import com.mgzxc.latte_core.net.callback.RequestCallbacks;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * Created by MG_ZXC on 2018/5/8.
@@ -42,6 +45,47 @@ public class RestClient {
         return new RestClientBuilder();
     }
 
+    private void request(HttpMethod method) {
+        final RestService service = RestCreator.getRestService();
+        Call<String> call = null;
+        if (REQUEST!=null) {
+            REQUEST.onRequestStart();//开始请求
+        }
+        switch (method) {
+            case GET:
+                call = service.get(URL, PARAMS);
+                break;
+            case POST:
+                call = service.post(URL, PARAMS);
+                break;
+            case PUT:
+                call = service.put(URL, PARAMS);
+                break;
+            case DELETE:
+                call = service.delete(URL, PARAMS);
+                break;
+            default:
+                break;
+        }
 
+        if (call!=null) {
+            call.enqueue(getRequestCallBacks());//调用自定义的callback
+        }
+    }
+    private Callback<String> getRequestCallBacks() {
+        return new RequestCallbacks(REQUEST, SUCCESS, ERROR, FAILURE);
+    }
 
+    public final void get(){
+        request(HttpMethod.GET);
+    }
+    public final void put(){
+        request(HttpMethod.PUT);
+    }
+    public final void post(){
+        request(HttpMethod.POST);
+    }
+    public final void delete(){
+        request(HttpMethod.DELETE);
+    }
 }
