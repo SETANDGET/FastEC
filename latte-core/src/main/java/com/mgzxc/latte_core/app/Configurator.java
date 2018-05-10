@@ -11,14 +11,13 @@ import java.util.HashMap;
  */
 public class Configurator {
     //要比HashMap容易回收
-    private static final HashMap<String, Object> LATTE_CONFIGS = new HashMap<>();
+    private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap<>();
     //图标初始化
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
     //私有构造
     private Configurator() {
         LATTE_CONFIGS.put(ConfigType.CONFIG_READ.name(), false);
     }
-
     /**
      * 单例模式
      * 1、要么使用枚举
@@ -38,7 +37,7 @@ public class Configurator {
         LATTE_CONFIGS.put(ConfigType.CONFIG_READ.name(), true);
     }
 
-    final HashMap<String, Object> getLatteConfigs() {
+    final HashMap<Object, Object> getLatteConfigs() {
         return LATTE_CONFIGS;
     }
 
@@ -68,9 +67,13 @@ public class Configurator {
     }
 
     @SuppressWarnings("unchecked")
-    final <T> T getConfiguration(Enum<ConfigType> key) {
+    final <T> T getConfiguration(Object key) {
         checkConfigurations();
-        return (T) LATTE_CONFIGS.get(key.name());
+        final Object value = LATTE_CONFIGS.get(key);
+        if (value==null) {
+            throw new NullPointerException(key.toString() + "is nulll");
+        }
+        return (T) LATTE_CONFIGS.get(key);
     }
 
 }

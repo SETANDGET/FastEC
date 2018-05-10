@@ -1,10 +1,14 @@
 package com.mgzxc.latte_core.net;
 
+import android.content.Context;
+
 import com.mgzxc.latte_core.net.callback.IError;
 import com.mgzxc.latte_core.net.callback.IFailure;
 import com.mgzxc.latte_core.net.callback.IRequest;
 import com.mgzxc.latte_core.net.callback.ISuccess;
 import com.mgzxc.latte_core.net.callback.RequestCallbacks;
+import com.mgzxc.latte_core.ui.LatteLoader;
+import com.mgzxc.latte_core.ui.LoaderStyle;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -25,13 +29,17 @@ public class RestClient {
     private final IError ERROR;
     private final IFailure FAILURE;
     private final RequestBody BODY;
+    private final LoaderStyle LOADER_STYLE;
+    private final Context CONTEXT;
 
     public RestClient(String url, IRequest request,
                       Map<String, Object> params,
                       ISuccess success,
                       IError error,
                       IFailure failure,
-                      RequestBody body) {
+                      RequestBody body,
+                      LoaderStyle loaderStyle,
+                      Context context) {
         this.URL = url;
         this.REQUEST = request;
         PARAMS.putAll(params);
@@ -39,6 +47,8 @@ public class RestClient {
         this.ERROR = error;
         this.FAILURE = failure;
         this.BODY = body;
+        this.LOADER_STYLE = loaderStyle;
+        this.CONTEXT = context;
     }
 
     public static RestClientBuilder builder(){
@@ -50,6 +60,9 @@ public class RestClient {
         Call<String> call = null;
         if (REQUEST!=null) {
             REQUEST.onRequestStart();//开始请求
+        }
+        if (LOADER_STYLE!=null) {
+            LatteLoader.showLoading(CONTEXT,LOADER_STYLE);
         }
         switch (method) {
             case GET:
@@ -73,7 +86,7 @@ public class RestClient {
         }
     }
     private Callback<String> getRequestCallBacks() {
-        return new RequestCallbacks(REQUEST, SUCCESS, ERROR, FAILURE);
+        return new RequestCallbacks(REQUEST, SUCCESS, ERROR, FAILURE,LOADER_STYLE);
     }
 
     public final void get(){

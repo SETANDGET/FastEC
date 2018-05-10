@@ -30,7 +30,7 @@ public class ExampleDelegate extends LatteDelegate {
     private void testRestClient() {
         //Toast.makeText(getContext(), "测试", Toast.LENGTH_SHORT).show();
         RestClient.builder()
-                .url("http://10.0.2.2:8080/Test/index.jsp")
+                .url("http://10.0.2.2:8080/Test/inde.jsp")
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
@@ -46,6 +46,7 @@ public class ExampleDelegate extends LatteDelegate {
                 .failure(new IFailure() {
                     @Override
                     public void onFailure() {
+
 
                     }
                 })

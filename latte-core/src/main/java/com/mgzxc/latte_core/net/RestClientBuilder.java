@@ -1,9 +1,12 @@
 package com.mgzxc.latte_core.net;
 
+import android.content.Context;
+
 import com.mgzxc.latte_core.net.callback.IError;
 import com.mgzxc.latte_core.net.callback.IFailure;
 import com.mgzxc.latte_core.net.callback.IRequest;
 import com.mgzxc.latte_core.net.callback.ISuccess;
+import com.mgzxc.latte_core.ui.LoaderStyle;
 
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -16,6 +19,7 @@ import okhttp3.RequestBody;
  * 建造者模式
  */
 public class RestClientBuilder {
+    private static final LoaderStyle DEFAULT_STYLE = LoaderStyle.BallClipRotatePulseIndicator;
     private String mUrl;
     private IRequest mIRequest;
     private static final Map<String, Object> PARAMS = RestCreator.getParams();
@@ -23,6 +27,8 @@ public class RestClientBuilder {
     private IError mIError;
     private IFailure mIFailure;
     private RequestBody mBody;
+    private Context mContext;
+    private LoaderStyle mloaderStyle;
 
     RestClientBuilder() {
 
@@ -62,10 +68,19 @@ public class RestClientBuilder {
         this.mIRequest = iRequest;
         return this;
     }
-    public final RestClient build(){
-        return new RestClient(mUrl,mIRequest,PARAMS,mISuccess,mIError,mIFailure,mBody);
+
+    public final RestClientBuilder loader(Context context, LoaderStyle style) {
+        this.mContext = context;
+        this.mloaderStyle = style;
+        return this;
     }
-
-
+    public  final RestClientBuilder loader(Context context){
+        this.mContext = context;
+        this.mloaderStyle = DEFAULT_STYLE;
+        return this;
+    }
+    public final RestClient build(){
+        return new RestClient(mUrl, mIRequest, PARAMS, mISuccess, mIError, mIFailure, mBody, mloaderStyle, mContext);
+    }
 
 }
