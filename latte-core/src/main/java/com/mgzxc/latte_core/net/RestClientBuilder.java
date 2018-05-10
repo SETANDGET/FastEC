@@ -8,6 +8,7 @@ import com.mgzxc.latte_core.net.callback.IRequest;
 import com.mgzxc.latte_core.net.callback.ISuccess;
 import com.mgzxc.latte_core.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -29,6 +30,7 @@ public class RestClientBuilder {
     private RequestBody mBody;
     private Context mContext;
     private LoaderStyle mloaderStyle;
+    private File mFile;
 
     RestClientBuilder() {
 
@@ -36,6 +38,15 @@ public class RestClientBuilder {
 
     public final RestClientBuilder url(String url) {
         this.mUrl = url;
+        return this;
+    }
+
+    public final RestClientBuilder file(File file) {
+        this.mFile = file;
+        return this;
+    }
+    public final RestClientBuilder file(String path){
+        this.mFile = new File(path);
         return this;
     }
 
@@ -48,23 +59,28 @@ public class RestClientBuilder {
         PARAMS.put(key, value);
         return this;
     }
-    public final RestClientBuilder raw(String raw){
+
+    public final RestClientBuilder raw(String raw) {
         this.mBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), raw);
         return this;
     }
-    public final RestClientBuilder success(ISuccess iSuccess){
+
+    public final RestClientBuilder success(ISuccess iSuccess) {
         this.mISuccess = iSuccess;
         return this;
     }
-    public final RestClientBuilder failure(IFailure iFailure){
+
+    public final RestClientBuilder failure(IFailure iFailure) {
         this.mIFailure = iFailure;
         return this;
     }
-    public final RestClientBuilder error(IError iError){
+
+    public final RestClientBuilder error(IError iError) {
         this.mIError = iError;
         return this;
     }
-    public final RestClientBuilder onRequest(IRequest iRequest){
+
+    public final RestClientBuilder onRequest(IRequest iRequest) {
         this.mIRequest = iRequest;
         return this;
     }
@@ -74,13 +90,15 @@ public class RestClientBuilder {
         this.mloaderStyle = style;
         return this;
     }
-    public  final RestClientBuilder loader(Context context){
+
+    public final RestClientBuilder loader(Context context) {
         this.mContext = context;
         this.mloaderStyle = DEFAULT_STYLE;
         return this;
     }
-    public final RestClient build(){
-        return new RestClient(mUrl, mIRequest, PARAMS, mISuccess, mIError, mIFailure, mBody, mloaderStyle, mContext);
+
+    public final RestClient build() {
+        return new RestClient(mUrl, mIRequest, PARAMS, mISuccess, mIError, mIFailure, mBody, mloaderStyle, mContext, mFile);
     }
 
 }
