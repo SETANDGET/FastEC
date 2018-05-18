@@ -31,11 +31,25 @@ public class RestClientBuilder {
     private Context mContext;
     private LoaderStyle mloaderStyle;
     private File mFile;
+    private  String mdownload_dir;
+    private  String mextension;
+    private  String mname;
 
     RestClientBuilder() {
 
     }
-
+    public final RestClientBuilder downLoadDIR(String download_dir) {
+        this.mdownload_dir = download_dir;
+        return this;
+    }
+    public final RestClientBuilder extension(String extension) {
+        this.mextension = extension;
+        return this;
+    }
+    public final RestClientBuilder name(String name) {
+        this.mname = name;
+        return this;
+    }
     public final RestClientBuilder url(String url) {
         this.mUrl = url;
         return this;
@@ -98,7 +112,10 @@ public class RestClientBuilder {
     }
 
     public final RestClient build() {
-        return new RestClient(mUrl, mIRequest, PARAMS, mISuccess, mIError, mIFailure, mBody, mloaderStyle, mContext, mFile);
+        return new RestClient(mUrl, mIRequest,
+                PARAMS, mISuccess, mIError,
+                mIFailure, mBody, mloaderStyle,
+                mContext, mFile,mdownload_dir,mextension,mname);
     }
 
 }

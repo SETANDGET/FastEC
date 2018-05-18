@@ -27,6 +27,9 @@ import retrofit2.Callback;
 public class RestClient {
     private final String URL;
     private final IRequest REQUEST;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
     private final ISuccess SUCCESS;
     private final IError ERROR;
@@ -44,7 +47,10 @@ public class RestClient {
                       RequestBody body,
                       LoaderStyle loaderStyle,
                       Context context,
-                      File file) {
+                      File file,
+                      String download_dir,
+                      String extension,
+                      String name) {
         this.URL = url;
         this.REQUEST = request;
         PARAMS.putAll(params);
@@ -52,7 +58,10 @@ public class RestClient {
         this.ERROR = error;
         this.FAILURE = failure;
         this.BODY = body;
+        this.DOWNLOAD_DIR=download_dir;
+        this.EXTENSION = extension;
         this.LOADER_STYLE = loaderStyle;
+        this.NAME = name;
         this.CONTEXT = context;
         this.FILE = file;
     }
@@ -132,8 +141,15 @@ public class RestClient {
             request(HttpMethod.POST_RAW);
         }
     }
+    public final void upload(){
+        request(HttpMethod.UPLOAD);
+    }
 
     public final void delete() {
         request(HttpMethod.DELETE);
+    }
+
+    public void downLoad(){
+
     }
 }
