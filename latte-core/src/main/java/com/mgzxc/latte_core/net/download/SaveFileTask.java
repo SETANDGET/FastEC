@@ -1,7 +1,10 @@
 package com.mgzxc.latte_core.net.download;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 
+import com.mgzxc.latte_core.app.Latte;
 import com.mgzxc.latte_core.net.callback.IRequest;
 import com.mgzxc.latte_core.net.callback.ISuccess;
 import com.mgzxc.latte_core.util.file.FileUtil;
@@ -53,11 +56,33 @@ public class SaveFileTask extends AsyncTask <Object,Void,File>{
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
+
     }
 
 
     @Override
     protected void onPostExecute(File file) {
         super.onPostExecute(file);
+        if (ISUCCESS!=null) {
+            ISUCCESS.onSuccess(file.getPath());
+            if (REQUEST!=null) {
+                REQUEST.onRequestEnd();
+            }
+        }
+
+        autoInstallApk(file);
     }
+
+    private void autoInstallApk(File file) {
+        if (FileUtil.getExtension(file.getPath()).equals("apk")) {
+            final Intent install = new Intent();
+            install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            install.setAction(Intent.ACTION_VIEW);
+            install.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            Latte.getApplicationContext().startActivity(install);
+
+        }
+    }
+
+
 }

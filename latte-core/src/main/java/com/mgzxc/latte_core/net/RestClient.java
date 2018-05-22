@@ -7,6 +7,7 @@ import com.mgzxc.latte_core.net.callback.IFailure;
 import com.mgzxc.latte_core.net.callback.IRequest;
 import com.mgzxc.latte_core.net.callback.ISuccess;
 import com.mgzxc.latte_core.net.callback.RequestCallbacks;
+import com.mgzxc.latte_core.net.download.DownLoadHandler;
 import com.mgzxc.latte_core.ui.LatteLoader;
 import com.mgzxc.latte_core.ui.LoaderStyle;
 
@@ -150,6 +151,7 @@ public class RestClient {
     }
 
     public void downLoad(){
+        new DownLoadHandler(URL, REQUEST, DOWNLOAD_DIR, EXTENSION, NAME, SUCCESS, ERROR, FAILURE).handleDownload();
 
     }
 }

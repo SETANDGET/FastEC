@@ -95,7 +95,7 @@ public final class FileUtil {
     }
 
     //获取文件后缀名
-    private static String getExtension(String filePath) {
+    public static String getExtension(String filePath) {
         String suffix = "";
         final File file = new File(filePath);
         final String name = file.getName();
