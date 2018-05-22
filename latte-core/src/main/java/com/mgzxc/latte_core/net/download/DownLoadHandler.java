@@ -1,5 +1,7 @@
 package com.mgzxc.latte_core.net.download;
 
+import android.os.AsyncTask;
+
 import com.mgzxc.latte_core.net.RestCreator;
 import com.mgzxc.latte_core.net.callback.IError;
 import com.mgzxc.latte_core.net.callback.IFailure;
@@ -46,12 +48,30 @@ public final class DownLoadHandler {
                 .enqueue(new Callback<ResponseBody>(){
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                     //to do
+                        if (response.isSuccessful()) {
+                           final ResponseBody body = response.body();
+                           final SaveFileTask task=new SaveFileTask(REQUEST,SUCCESS);
+                            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, DOWNLOAD_DIR, EXTENSION, body, NAME);
+                            //这里注意判断 否则文件下载不全
+                            if (task.isCancelled()) {
+                                if (REQUEST!=null) {
+                                    REQUEST.onRequestEnd();
+                                }
+                            }
+                        }else {
+                            if (ERROR!=null) {
+                                ERROR.onError(response.code(), response.message());
+                            }
+                        }
+                        RestCreator.getParams().clear();
+
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        if (FAILURE!=null) {
+                            FAILURE.onFailure();
+                        }
                     }
                 });
 

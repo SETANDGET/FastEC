@@ -145,6 +145,76 @@ public final class FileUtil {
         refreshDCIM();//存贮照片后需要刷新DCIM
         return fileName;
     }
+    public static File  writeToDisk(InputStream is,String dir,String name){
+        File file = FileUtil.createFile(dir, name);
+        BufferedInputStream bis = null;
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
+        try {
+            bis = new BufferedInputStream(is);
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+            byte data[] = new byte[1024 * 4];
+            int count;
+            while((count=bis.read(data))!=-1){
+                bos.write(data, 0, count);
+            }
+            bos.flush();
+            fos.flush();
+        }catch (Exception e){
+            try {
+                if (bos!=null) {
+                    bos.close();
+                }
+                if (fos!=null) {
+                    fos.close();
+                }
+                if (bis!=null) {
+                    bis.close();
+                }
+                is.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return file;
+    }
+
+    public static File  writeToDisk(InputStream is,String dir,String prefix,String extension){
+        File file = FileUtil.createFileByTime(dir, prefix,extension);
+        BufferedInputStream bis = null;
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
+        try {
+            bis = new BufferedInputStream(is);
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+            byte data[] = new byte[1024 * 4];
+            int count;
+            while((count=bis.read(data))!=-1){
+                bos.write(data, 0, count);
+            }
+            bos.flush();
+            fos.flush();
+        }catch (Exception e){
+            try {
+                if (bos!=null) {
+                    bos.close();
+                }
+                if (fos!=null) {
+                    fos.close();
+                }
+                if (bis!=null) {
+                    bis.close();
+                }
+                is.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return file;
+    }
+
 
     //通知系统刷新系统相册，使照片展现出来
     private static void refreshDCIM() {
