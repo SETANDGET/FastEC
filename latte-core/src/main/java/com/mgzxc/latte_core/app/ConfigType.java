@@ -6,5 +6,5 @@ package com.mgzxc.latte_core.app;
  * 安全的惰性的单例初始化，相当于单例模式中的懒汉模式
  */
 public enum  ConfigType {
-    API_HOST,APPLICATION_CONTEXT,CONFIG_READ,ICON
+    API_HOST,APPLICATION_CONTEXT,CONFIG_READ,ICON,INTERCEPTOR
 }

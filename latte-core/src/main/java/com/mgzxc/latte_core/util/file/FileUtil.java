@@ -237,7 +237,7 @@ public final class FileUtil {
         final StringBuilder sb = new StringBuilder();
         String str;
         try {
-            if ((str=br.readLine())!=null) {
+            while ((str=br.readLine())!=null) {
                 sb.append(str);
             }
         } catch (IOException e) {
@@ -276,7 +276,7 @@ public final class FileUtil {
             br = new BufferedReader(isr);
             sb = new StringBuilder();
             String  str;
-            if ((str=br.readLine())!=null) {
+            while ((str=br.readLine())!=null) {
                 sb.append(str);
             }
 

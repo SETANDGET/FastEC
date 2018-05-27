@@ -6,6 +6,8 @@ import com.joanzapata.iconify.Iconify;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import okhttp3.Interceptor;
+
 /**
  * Created by MG_ZXC on 2018/5/7.
  */
@@ -14,9 +16,10 @@ public class Configurator {
     private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap<>();
     //图标初始化
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
     //私有构造
     private Configurator() {
-        LATTE_CONFIGS.put(ConfigType.CONFIG_READ.name(), false);
+        LATTE_CONFIGS.put(ConfigType.CONFIG_READ, false);
     }
     /**
      * 单例模式
@@ -34,7 +37,7 @@ public class Configurator {
 
     public final void configure() {
         initIcons();
-        LATTE_CONFIGS.put(ConfigType.CONFIG_READ.name(), true);
+        LATTE_CONFIGS.put(ConfigType.CONFIG_READ, true);
     }
 
     final HashMap<Object, Object> getLatteConfigs() {
@@ -42,7 +45,18 @@ public class Configurator {
     }
 
     public final Configurator withApiHost(String host) {
-        LATTE_CONFIGS.put(ConfigType.API_HOST.name(), host);
+        LATTE_CONFIGS.put(ConfigType.API_HOST, host);
+        return this;
+    }
+
+    public final Configurator withInterceptor(Interceptor interceptor) {
+        INTERCEPTORS.add(interceptor);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);
+        return this;
+    }
+    public final Configurator withInterceptors(ArrayList<Interceptor> interceptors) {
+        INTERCEPTORS.addAll(interceptors);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);
         return this;
     }
     private void initIcons(){
@@ -60,7 +74,7 @@ public class Configurator {
     }
 
     private void checkConfigurations() {
-        final boolean isReady = (boolean) LATTE_CONFIGS.get(ConfigType.CONFIG_READ.name());
+        final boolean isReady = (boolean) LATTE_CONFIGS.get(ConfigType.CONFIG_READ);
         if (!isReady) {
             throw new RuntimeException("");
         }
