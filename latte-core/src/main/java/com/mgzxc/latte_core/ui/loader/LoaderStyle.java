@@ -1,4 +1,4 @@
-package com.mgzxc.latte_core.ui;
+package com.mgzxc.latte_core.ui.loader;
 
 /**
  * Created by MG_ZXC on 2018/5/9.

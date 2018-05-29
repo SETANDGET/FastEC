@@ -6,7 +6,7 @@ import com.mgzxc.latte_core.net.callback.IError;
 import com.mgzxc.latte_core.net.callback.IFailure;
 import com.mgzxc.latte_core.net.callback.IRequest;
 import com.mgzxc.latte_core.net.callback.ISuccess;
-import com.mgzxc.latte_core.ui.LoaderStyle;
+import com.mgzxc.latte_core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;

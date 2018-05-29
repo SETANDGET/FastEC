@@ -1,7 +1,7 @@
 package com.mgzxc.latte_core.net.callback;
 
-import com.mgzxc.latte_core.ui.LatteLoader;
-import com.mgzxc.latte_core.ui.LoaderStyle;
+import com.mgzxc.latte_core.ui.loader.LatteLoader;
+import com.mgzxc.latte_core.ui.loader.LoaderStyle;
 
 import retrofit2.Call;
 import retrofit2.Callback;
