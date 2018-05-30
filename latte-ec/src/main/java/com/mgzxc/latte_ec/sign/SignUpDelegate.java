@@ -7,6 +7,8 @@ import android.util.Patterns;
 import android.view.View;
 
 import com.mgzxc.latte_core.delegates.LatteDelegate;
+import com.mgzxc.latte_core.net.RestClient;
+import com.mgzxc.latte_core.net.callback.ISuccess;
 import com.mgzxc.latte_ec.R;
 import com.mgzxc.latte_ec.R2;
 
@@ -31,6 +33,21 @@ public class SignUpDelegate extends LatteDelegate {
     @OnClick(R2.id.btn_sign_up)
     void onClickSignUp(){
         if (checkForm()) {
+            RestClient.builder()
+                    .url("")
+                    .params("name",mName.getText().toString())
+                    .params("phone",mPhone.getText().toString())
+                    .params("email",mEmail.getText().toString())
+                    .params("password",mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            SignHandler.onSignIn(response);
+
+                        }
+                    })
+                    .build()
+                    .post();
 
         }
     }

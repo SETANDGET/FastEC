@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 
+
 android {
     compileSdkVersion 25
 
@@ -55,5 +56,8 @@ dependencies {
     //viewpager 转换动画
     //Json依赖
     api 'com.alibaba:fastjson:1.2.31'
+    //greendao 依赖
+    api 'org.greenrobot:greendao:3.2.2' // add library
+    api 'org.greenrobot:greendao-generator:3.2.2'
 
 }

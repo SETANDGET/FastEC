@@ -48,7 +48,7 @@
                 android:layout_marginTop="8dp">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/edit_sign_up_email"
+                    android:id="@+id/edit_sign_in_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="邮箱"
@@ -63,7 +63,7 @@
                 android:layout_marginTop="8dp">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/edit_sign_up_password"
+                    android:id="@+id/edit_sign_in_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="密码"
@@ -72,6 +72,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
@@ -83,6 +84,7 @@
                 android:gravity="center"
                 tools:ignore="HardcodedText" />
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_link_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
@@ -90,6 +92,14 @@
                 android:text="还没有账户？现在注册吧"
                 android:textSize="16sp"
                 tools:ignore="HardcodedText" />
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/icon_sign_in_wechat"
+                android:layout_gravity="center_horizontal"
+                android:text="{fa-weixin}"
+                android:textColor="#04b00f"
+                android:textSize="40sp"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
 
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v4.widget.NestedScrollView>
